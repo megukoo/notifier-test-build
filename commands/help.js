@@ -18,6 +18,7 @@ exports.run = (client, message, args, level) => {
     embed.addField(x, x.help.description)
   }
   embed.setTitle("Command List")
+  embed.setColor('ORANGE')
   message.channel.send({embed})
 };
 
