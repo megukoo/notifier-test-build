@@ -15,7 +15,7 @@ exports.run = (client, message, args, level) => {
 
   const embed = new discord.RichEmbed()
   for (x in commands) {
-    embed.addField(x, commands[x].help.description, true)
+    embed.addField(commands[x].name, commands[x].help.description, true)
   }
   embed.setTitle("Command List")
   embed.setColor('ORANGE')
