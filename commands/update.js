@@ -20,7 +20,7 @@ exports.run = (client, message, args, level) => {
       msg.edit({embed2})
     } else {
       let embed2 = new Discord.RichEmbed()
-      embed2.setTitle("Initalizing..."")
+      embed2.setTitle("Initalizing...")
       embed2.setDescription(`Initalizing source.`)
       embed2.setColor('ORANGE')
       msg.edit({embed2})
@@ -54,8 +54,8 @@ exports.conf = {
 };
 
 exports.help = {
-  name: "approve",
+  name: "update",
   category: "System",
-  description: "Approves users.",
-  usage: "approve"
+  description: "Updates to the source code provided.",
+  usage: "update"
 };
