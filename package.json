@@ -1,0 +1,64 @@
+{
+  "name": "guidebot",
+  "version": "2.3.5",
+  "description": "A boilerplate example bot with command handler and reloadable commands. Updated and Maintained by the Idiot's Guide Community",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "8.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/An-Idiots-Guide/guidebot.git"
+  },
+  "author": "Evelyne Lachance <eslachance@gmail.com> (http://evie.codes)",
+  "contributors": [
+    "York (http://anidiots.guide)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/An-Idiots-Guide/guidebot/issues"
+  },
+  "homepage": "https://github.com/An-Idiots-Guide/guidebot#readme",
+  "dependencies": {
+    "async-redis": "^1.1.4",
+    "body-parser": "^1.18.3",
+    "canvas": "^2.1.0",
+    "chalk": "^2.4.1",
+    "cheerio": "^1.0.0-rc.2",
+    "cleverbot.io": "^1.0.4",
+    "dblapi.js": "^2.3.0",
+    "discord.js": "^11.4.2",
+    "enmap": "^0.4.6",
+    "enmap-level": "^1.0.1",
+    "enmap-rethink": "^2.1.2",
+    "express": "^4.16.4",
+    "g-i-s": "^2.1.2",
+    "google": "^2.1.0",
+    "google-images": "^2.1.0",
+    "http": "0.0.0",
+    "image-recognition": "^1.1.0",
+    "image-to-text": "^1.0.8",
+    "lodash": "^4.17.11",
+    "mathjs": "^3.20.2",
+    "moji-translate": "^1.0.8",
+    "moment": "^2.22.2",
+    "moment-duration-format": "^2.2.2",
+    "noblox.js": "^4.1.2",
+    "ordinal-js": "^1.1.0",
+    "query-string": "^5.1.1",
+    "redis": "^2.8.0",
+    "request": "^2.88.0",
+    "rethinkdb": "^2.3.3",
+    "roblox-js": "^4.0.4",
+    "snekfetch": "^3.6.4",
+    "sqlite": "^2.9.3",
+    "text-meme": "^2.3.0",
+    "translate": "^1.0.3",
+    "tunnel-agent": "^0.6.0",
+    "validator": "^9.4.1"
+  }
+}
