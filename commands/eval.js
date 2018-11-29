@@ -27,7 +27,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
       var embed = new discord.RichEmbed()
       embed.setTitle("Code evaluated")
       embed.setDescription(`\`\`\`js\n${output}\n\`\`\``);
-      embed.setColor(process.env.green)
+      embed.setColor('GREEN')
       embed.setFooter("Nerd evaluated some code", message.author.avatarURL)
       embed.setTimestamp()
       message.channel.send({embed})
@@ -37,7 +37,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         var embed = new discord.RichEmbed()
         embed.setTitle("That's a large result")
         embed.setDescription(`Output was to long so it was uploaded to hastebin https://www.hastebin.com/${body.key}.js`);
-        embed.setColor(process.env.orange)
+        embed.setColor('ORANGE')
         embed.setFooter("Nerd evaluated some code", message.author.avatarURL)
         embed.setTimestamp()
         message.channel.send({embed})

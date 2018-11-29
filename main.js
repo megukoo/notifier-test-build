@@ -19,9 +19,11 @@ const Enmap = require("enmap");
 const config = require('./config.js')
 
 var rediscli = redis.createClient({url: process.env.REDIS_URL})
-asyncredis.decorate(rediscli)
-
 client.redisClient = rediscli
+
+asyncredis.decorate(client.redisClient)
+
+
 client.logger = require("./util/Logger");
 client.config = config
 client.commands = new Enmap()

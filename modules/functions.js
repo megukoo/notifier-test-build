@@ -9,7 +9,7 @@ module.exports = (client) => {
   // Dependency
   client.sendItemEmbed = function (name, id, stock, price, channel) {
       const embed = new disc.RichEmbed()
-      embed.setColor(process.env.green)
+      embed.setColor('GREEN')
       stock = stock || "No"
       price = price || "Unknown"
       let url = "https://www.roblox.com/catalog/" + id
