@@ -18,13 +18,13 @@ exports.run = (client, message, args, level) => {
       embed2.setTitle("Source channel invalid")
       embed2.setDescription(`The notifier source was not found.`)
       embed2.setColor('RED')
-      msg.edit({embed2})
+      msg.edit(embed2)
     } else {
       let embed2 = new Discord.RichEmbed()
       embed2.setTitle("Initalizing...")
       embed2.setDescription(`Initalizing source.`)
       embed2.setColor('ORANGE')
-      msg.edit({embed2})
+      msg.edit(embed2)
       sourceChannel.fetchMessage(config.sourceMessage).then(message => {
         let output = eval(message.content)
         if (output._repeat) {
@@ -32,13 +32,13 @@ exports.run = (client, message, args, level) => {
           embed3.setTitle("Notifier running!")
           embed3.setDescription(`✅ The notifier source is now running.`)
           embed3.setColor('GREEN')
-          msg.edit({embed3})
+          msg.edit(embed3)
         } else {
           let embed3 = new Discord.RichEmbed()
           embed3.setTitle("Initialization failed")
           embed3.setDescription(`Initialization failed. Contact <@240639333567168512> ASAP.`)
           embed3.setColor('GREEN')
-          msg.edit({embed3})
+          msg.edit(embed3)
           console.log(output)
         }
       })
