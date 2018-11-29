@@ -17,6 +17,7 @@ asyncredis.decorate(rediscli)
 
 client.redisClient = rediscli
 client.logger = require("./util/Logger");
+client.config = config
 
 var prefix = "$"
 
