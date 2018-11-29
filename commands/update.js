@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 
 exports.run = (client, message, args, level) => {
+  var config = client.config
   if (client.interval) {
     message.channel.send("Cleared previous loop of ID " + client.interval._idleStart)
     clearInterval(client.interval)
@@ -28,7 +29,7 @@ exports.run = (client, message, args, level) => {
         let output = eval(message.content)
         if (output._repeat) {
           let embed3 = new Discord.RichEmbed()
-          embed3.setTitle("Notifier running.")
+          embed3.setTitle("Notifier running!")
           embed3.setDescription(`✅ The notifier source is now running.`)
           embed3.setColor('GREEN')
           msg.edit({embed3})
