@@ -23,35 +23,33 @@ var prefix = "$"
 
 require("./modules/functions.js")(client)
 
-const init = async () => {
-  client.on("ready", () => {
-    console.log("The client is ready and has loaded.")
-    let sourceChannel = client.channels.get(config.sourceChannel)
-    let log = client.channels.get(config.approvedChat)
-    if (!sourceChannel) {
-      log.send("There was an error receiving the channel to begin the notifier.\nContact <@240639333567168512> ASAP.")
-    } else {
-      log.send("The notifier is initializing.")
-      sourceChannel.fetchMessage(sourceMessage).then(message => {
-        let output = eval(message.content)
-        if (output._repeat) {
-          log.send("Notifier is up and running.")
-        } else {
-          log.send("An error has occurred within the source code.\nContact <@240639333567168512> ASAP.")
-        }
-      })
-    }
-  })
+client.on("ready", async () => {
+  await client.wait(2500)
+  console.log("The client is ready and has loaded.")
+  let sourceChannel = client.channels.get(config.sourceChannel)
+  let log = client.channels.get(config.approvedChat)
+  if (!sourceChannel) {
+    log.send("There was an error receiving the channel to begin the notifier.\nContact <@240639333567168512> ASAP.")
+  } else {
+    log.send("The notifier is initializing.")
+    sourceChannel.fetchMessage(sourceMessage).then(message => {
+      let output = eval(message.content)
+      if (output._repeat) {
+        log.send("Notifier is up and running.")
+      } else {
+        log.send("An error has occurred within the source code.\nContact <@240639333567168512> ASAP.")
+      }
+    })
+  }
+})
 
+const init = async () => {
+  
   client.on("message", message => {
     if (message.author.bot) return;
-    let prefixFound = message.content.toLowerCase().indexOf(prefix) == 0
+    if (message.content.indexOf(prefix) !== 0) return;
 
-    var prefixTrim;
-    if (prefixFound) {
-      prefixTrim = message.content.slice(1).trim().split(/ +/g);
-    }
-    const args = prefixTrim || []
+    const args = message.content.slice(1).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
     // Get the user or member's permission level from the elevation
@@ -70,8 +68,7 @@ const init = async () => {
     while (args[0] && args[0][0] === "-") {
      message.flags.push(args.shift().slice(1));
     }
-    // If the command exists, **AND** the user has permission, run it.
-    // client.logger.cmd(`[CMD] ${client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`);
+
     try {
       cmd.run(client, message, args, level);
     } catch (e) {
@@ -79,7 +76,7 @@ const init = async () => {
       console.log(cmd.help.name + " command had an error. " + e)
     }
   })
-  
+
   client.login(process.env.token)
 };
 
