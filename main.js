@@ -44,7 +44,7 @@ client.on("ready", async () => {
 })
 
 const init = async () => {
-  
+
   client.on("message", message => {
     if (message.author.bot) return;
     if (message.content.indexOf(prefix) !== 0) return;
@@ -76,6 +76,13 @@ const init = async () => {
       console.log(cmd.help.name + " command had an error. " + e)
     }
   })
+
+  client.levelCache = {};
+  
+  for (let i = 0; i < config.permLevels.length; i++) {
+    const thisLevel = config.permLevels[i];
+    client.levelCache[thisLevel.name] = thisLevel.level;
+  }
 
   client.login(process.env.token)
 };
