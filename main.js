@@ -18,7 +18,7 @@ asyncredis.decorate(rediscli)
 client.redisClient = rediscli
 client.logger = require("./util/Logger");
 
-var prefix = config.prefix
+var prefix = "$"
 
 
 require("./modules/functions.js")(client)
@@ -49,13 +49,13 @@ const init = async () => {
 
     var prefixTrim;
     if (prefixFound) {
-      prefixTrim = message.content.slice(prefix.length).trim().split(/ +/g);
+      prefixTrim = message.content.slice(1).trim().split(/ +/g);
     }
-    const args = prefixTrim
+    const args = prefixTrim || []
     const command = args.shift().toLowerCase();
 
     // Get the user or member's permission level from the elevation
-    const level = client.permlevel(message, data);
+    const level = client.permlevel(message);
 
 
     const cmd = client.commands.get(command.toLowerCase()) || client.commands.get(client.aliases.get(command.toLowerCase()));
@@ -79,6 +79,7 @@ const init = async () => {
       console.log(cmd.help.name + " command had an error. " + e)
     }
   })
+  
   client.login(process.env.token)
 };
 
