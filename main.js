@@ -10,6 +10,11 @@ const client = new Discord.Client()
 const redis = require('redis')
 const asyncredis = require('async-redis')
 
+// Other
+const {promisify} = require("util");
+const util = require("util")
+const readdir = promisify(require("fs").readdir);
+
 const config = require('./config.js')
 
 var rediscli = redis.createClient({url: process.env.REDIS_URL})
