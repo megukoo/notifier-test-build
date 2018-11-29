@@ -14,6 +14,7 @@ const asyncredis = require('async-redis')
 const {promisify} = require("util");
 const util = require("util")
 const readdir = promisify(require("fs").readdir);
+const Enmap = require("enmap");
 
 const config = require('./config.js')
 
@@ -23,6 +24,8 @@ asyncredis.decorate(rediscli)
 client.redisClient = rediscli
 client.logger = require("./util/Logger");
 client.config = config
+client.commands = new Enmap()
+client.aliases = new Enmap()
 
 var prefix = "$"
 
