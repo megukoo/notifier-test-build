@@ -1,6 +1,6 @@
 {
   "name": "watersnotifier",
-  "version": "1",
+  "version": "1.0.0",
   "description": "A roblox limited notifier.",
   "main": "main.js",
   "scripts": {
