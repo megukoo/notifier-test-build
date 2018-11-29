@@ -49,7 +49,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     var embed = new discord.RichEmbed()
     embed.setTitle("Get oofed")
     embed.setDescription(`The following error occured \`\`\`js\n${error.stack}\`\`\``);
-    embed.setColor(process.env.red)
+    embed.setColor('RED')
     embed.setFooter("Nerd evaluated some bad code", message.author.avatarURL)
     embed.setTimestamp()
     message.channel.send({embed})
