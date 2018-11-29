@@ -16,6 +16,7 @@ var rediscli = redis.createClient({url: process.env.REDIS_URL})
 asyncredis.decorate(rediscli)
 
 client.redisClient = rediscli
+client.logger = require("./util/Logger");
 
 var prefix = config.prefix
 
@@ -28,7 +29,6 @@ const init = async () => {
     let sourceChannel = client.channels.get(config.sourceChannel)
     let log = client.channels.get(config.approvedChat)
     if (!sourceChannel) {
-
       log.send("There was an error receiving the channel to begin the notifier.\nContact <@240639333567168512> ASAP.")
     } else {
       log.send("The notifier is initializing.")
