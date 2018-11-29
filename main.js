@@ -32,7 +32,7 @@ client.on("ready", async () => {
     log.send("There was an error receiving the channel to begin the notifier.\nContact <@240639333567168512> ASAP.")
   } else {
     log.send("The notifier is initializing.")
-    sourceChannel.fetchMessage(sourceMessage).then(message => {
+    sourceChannel.fetchMessage(config.sourceMessage).then(message => {
       let output = eval(message.content)
       if (output._repeat) {
         log.send("Notifier is up and running.")
@@ -78,7 +78,7 @@ const init = async () => {
   })
 
   client.levelCache = {};
-  
+
   for (let i = 0; i < config.permLevels.length; i++) {
     const thisLevel = config.permLevels[i];
     client.levelCache[thisLevel.name] = thisLevel.level;
