@@ -7,13 +7,13 @@ const disc = require("discord.js")
 module.exports = (client) => {
 
   // Dependency
-  client.sendItemEmbed = function (name, id, stock, price, channel) {
+  client.sendItemEmbed = function (name, id, stock, price, channel, title) {
       const embed = new disc.RichEmbed()
       embed.setColor('GREEN')
       stock = stock || "No"
       price = price || "Unknown"
       let url = "https://www.roblox.com/catalog/" + id
-      embed.setTitle(`${name}`)
+      embed.setTitle(`${title || name}`)
       // embed.setURL(`https://www.roblox.com/catalog/${id}`)
       embed.setDescription(`Price: ${price} R$\nStock: ${stock} items to buy out\n\n${url}`)
       embed.setFooter("Gotta get it, quick")
