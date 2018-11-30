@@ -52,14 +52,14 @@ client.on("ready", async () => {
       }
     })
 
-    sourceChannel.fetchMessage(config.sourceMessage2).then(message => {
-      let output = eval(message.content)
-      if (output._repeat) {
-        log.send("Item notifier up.")
-      } else {
-        log.send("An error has occurred within the source code.\nContact <@240639333567168512> ASAP. (Item notifier)")
-      }
-    })
+    let message = await sourceChannel.fetchMessage(config.sourceMessage2)
+    let output = eval(message.content)
+    await client.wait(2500)
+    if (client.interval2) {
+      log.send("Item notifier up.")
+    } else {
+      log.send("An error has occurred within the source code.\nContact <@240639333567168512> ASAP. (Item notifier)")
+    }
   }
 })
 
