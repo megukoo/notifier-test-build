@@ -47,6 +47,7 @@ exports.run = (client, message, args, level) => {
         })
       }
     })
+    return
   }
 
   if (type == "items") {
@@ -92,7 +93,9 @@ exports.run = (client, message, args, level) => {
         })
       }
     })
+    return
   }
+  message.channel.send("`update limited` OR `update items`")
 
 
 };
