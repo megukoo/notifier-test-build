@@ -54,8 +54,9 @@ client.on("ready", async () => {
 
     let message = await sourceChannel.fetchMessage(config.sourceMessage2)
     let output = eval(message.content)
-    await client.wait(2500)
-    if (client.interval2) {
+    await client.wait(5000)
+    console.log(output)
+    if (output) {
       log.send("Item notifier up.")
     } else {
       log.send("An error has occurred within the source code.\nContact <@240639333567168512> ASAP. (Item notifier)")
