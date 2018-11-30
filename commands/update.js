@@ -76,7 +76,7 @@ exports.run = (client, message, args, level) => {
         msg.edit(embed2)
         sourceChannel.fetchMessage(config.sourceMessage2).then(message => {
           let output = eval(message.content)
-          if (output._repeat) {
+          if (output) {
             let embed3 = new Discord.RichEmbed()
             embed3.setTitle("Item Notifier running!")
             embed3.setDescription(`✅ The item notifier source is now running.`)
