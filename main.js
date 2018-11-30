@@ -40,15 +40,24 @@ client.on("ready", async () => {
   let sourceChannel = client.channels.get(config.sourceChannel)
   let log = client.channels.get(config.approvedChat)
   if (!sourceChannel) {
-    log.send("There was an error receiving the channel to begin the notifier.\nContact <@240639333567168512> ASAP.")
+    log.send("There was an error receiving the data to begin the notifiers.\nContact <@240639333567168512> ASAP.")
   } else {
     log.send("The notifier is initializing.")
     sourceChannel.fetchMessage(config.sourceMessage).then(message => {
       let output = eval(message.content)
       if (output._repeat) {
-        log.send("Notifier is up and running.")
+        log.send("Limited notifier up.")
       } else {
-        log.send("An error has occurred within the source code.\nContact <@240639333567168512> ASAP.")
+        log.send("An error has occurred within the source code.\nContact <@240639333567168512> ASAP. (Limited notifier)")
+      }
+    })
+
+    sourceChannel.fetchMessage(config.sourceMessage2).then(message => {
+      let output = eval(message.content)
+      if (output._repeat) {
+        log.send("Item notifier up.")
+      } else {
+        log.send("An error has occurred within the source code.\nContact <@240639333567168512> ASAP. (Item notifier)")
       }
     })
   }
