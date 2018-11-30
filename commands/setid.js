@@ -4,9 +4,9 @@ exports.run = (client, message, args, level) => {
   let id = args[0]
   if (!parseInt(id)) {
     let embed = new Discord.RichEmbed()
-    embed.setTitle("Invalid argument")
-    embed.setDescription(`The ID must be a number.`)
-    embed.setColor('RED')
+    embed.setTitle("Current ID")
+    embed.setDescription(`The current tracking ID is ${client.trackingID || "not initalized."}`)
+    embed.setColor('ORANGE')
     message.channel.send({embed})
     return
   }
