@@ -44,22 +44,31 @@ client.on("ready", async () => {
   } else {
     log.send("The notifier is initializing.")
     sourceChannel.fetchMessage(config.sourceMessage).then(message => {
-      let output = eval(message.content)
-      if (output._repeat) {
-        log.send("Limited notifier up.")
-      } else {
-        log.send("An error has occurred within the source code.\nContact <@240639333567168512> ASAP. (Limited notifier)")
+      try {
+        let output = eval(message.content)
+        if (output._repeat) {
+          log.send("Limited notifier up.")
+        } else {
+          log.send("An error has occurred within the source code.\nContact <@240639333567168512> ASAP. (Limited notifier)")
+        }
+      } catch (e) {
+        log.send("An error occurred in the Limited Notifier source.")
       }
+      
     })
 
     let message = await sourceChannel.fetchMessage(config.sourceMessage2)
-    let output = eval(message.content)
-    await client.wait(5000)
-    console.log(output)
-    if (output) {
-      log.send("Item notifier up.")
-    } else {
-      log.send("An error has occurred within the source code.\nContact <@240639333567168512> ASAP. (Item notifier)")
+    try {
+      let output = eval(message.content)
+      await client.wait(5000)
+      console.log(output)
+      if (output) {
+        log.send("Item notifier up.")
+      } else {
+        log.send("An error has occurred within the source code.\nContact <@240639333567168512> ASAP. (Item notifier)")
+      }
+    } catch (e) {
+      log.send("An error occurred in the Item Notifier source.")
     }
   }
 })
