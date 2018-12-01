@@ -60,7 +60,6 @@ client.on("ready", async () => {
     sourceChannel.fetchMessage(config.sourceMessage2).then(message => {
       try {
         let output = eval(message.content)
-        await client.wait(5000)
         console.log(output)
         if (output) {
           log.send("Item notifier up.")
