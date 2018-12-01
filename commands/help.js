@@ -12,8 +12,11 @@ exports.run = (client, message, args, level) => {
   const discord = require("discord.js")
 
   let commands = client.commands.array()
-
-  let text = commands.join(", ")
+  let names = []
+  for (x in commands) {
+    names.push(commands[x].help.name)
+  }
+  let text = names.join(", ")
   const embed = new discord.RichEmbed()
   embed.setTitle("Command List")
   embed.setColor('ORANGE')

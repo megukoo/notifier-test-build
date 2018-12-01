@@ -22,7 +22,10 @@ exports.run = (client, message, args, level) => {
       }
     })
   }).catch(err => {
-    message.channel.send("Well, you failed to provide a number.")
+    if (err) {
+      message.channel.send("Well, you failed to provide a number.")
+    }
+
   })
 
 
