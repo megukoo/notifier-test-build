@@ -35,7 +35,7 @@ var prefix = "$"
 require("./modules/functions.js")(client)
 
 client.on("ready", async () => {
-  await client.wait(2500)
+  // await client.wait(2500)
   console.log("The client is ready and has loaded.")
   let sourceChannel = client.channels.get(config.sourceChannel)
   let log = client.channels.get(config.approvedChat)
