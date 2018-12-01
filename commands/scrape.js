@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 
 exports.run = (client, message, args, level) => {
+  var sourceChannel = client.channels.get(client.config.sourceChannel)
+
   client.awaitReply(message, "Please send an ID to start scraping items from.").then(reply => {
     if (!parseInt(reply)) {
       return message.channel.send("You dolt, that isn't a number.")
@@ -21,11 +23,6 @@ exports.run = (client, message, args, level) => {
         console.log("Scraper errored on startup")
       }
     })
-  }).catch(err => {
-    if (err) {
-      message.channel.send("Well, you failed to provide a number.")
-    }
-
   })
 
 
