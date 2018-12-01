@@ -28,8 +28,8 @@ exports.run = (client, message, args, level) => {
         embed2.setDescription(`Initalizing source.`)
         embed2.setColor('ORANGE')
         msg.edit(embed2)
-        sourceChannel.fetchMessage(config.sourceMessage).then(message => {
-          let output = eval(message.content)
+        sourceChannel.fetchMessage(config.sourceMessage).then(msgc => {
+          let output = eval(msgc.content)
           if (output._repeat) {
             let embed3 = new Discord.RichEmbed()
             embed3.setTitle("Limited Notifier running!")
@@ -74,8 +74,8 @@ exports.run = (client, message, args, level) => {
         embed2.setDescription(`Initalizing source.`)
         embed2.setColor('ORANGE')
         msg.edit(embed2)
-        sourceChannel.fetchMessage(config.sourceMessage2).then(message => {
-          let output = eval(message.content)
+        sourceChannel.fetchMessage(config.sourceMessage2).then(msgc => {
+          let output = eval(msgc.content)
           if (output) {
             let embed3 = new Discord.RichEmbed()
             embed3.setTitle("Item Notifier running!")
