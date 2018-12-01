@@ -5,6 +5,8 @@ const config = {
   "sourceMessage": "516776968432254991",
   "sourceMessage2": "517857111993090068",
   "approvedChat": "516604996851335168",
+  "scrapeChannel": "518530622969479168",
+  "startScraper": "518535615726354443",
 
   permLevels: [
     // This is the lowest permisison level, this is for non-roled users.

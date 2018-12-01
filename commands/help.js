@@ -13,12 +13,11 @@ exports.run = (client, message, args, level) => {
 
   let commands = client.commands.array()
 
+  let text = commands.join(", ")
   const embed = new discord.RichEmbed()
-  for (x in commands) {
-    embed.addField(commands[x].help.name, commands[x].help.description, true)
-  }
   embed.setTitle("Command List")
   embed.setColor('ORANGE')
+  embed.addField("Usable Commands: ", text)
   message.channel.send({embed})
 };
 

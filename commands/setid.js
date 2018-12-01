@@ -2,14 +2,7 @@ const Discord = require("discord.js");
 
 exports.run = (client, message, args, level) => {
   let id = args[0]
-  if (!parseInt(id)) {
-    let embed = new Discord.RichEmbed()
-    embed.setTitle("Current ID")
-    embed.setDescription(`The current tracking ID is ${client.trackingID || "not initalized."}`)
-    embed.setColor('ORANGE')
-    message.channel.send({embed})
-    return
-  }
+
   if (client.trackingID) {
     if (!id) {
       client.trackingID = 1
@@ -19,6 +12,14 @@ exports.run = (client, message, args, level) => {
       embed.setColor('GREEN')
       message.channel.send({embed})
     } else {
+      if (!parseInt(id)) {
+        let embed = new Discord.RichEmbed()
+        embed.setTitle("Current ID")
+        embed.setDescription(`The current tracking ID is ${client.trackingID || "not initalized."}`)
+        embed.setColor('ORANGE')
+        message.channel.send({embed})
+        return
+      }
       client.trackingID = id
       let embed = new Discord.RichEmbed()
       embed.setTitle("Success")
