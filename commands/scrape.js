@@ -2,6 +2,13 @@ const Discord = require("discord.js");
 
 exports.run = (client, message, args, level) => {
   var sourceChannel = client.channels.get(client.config.sourceChannel)
+  if (client.scraper) {
+    message.channel.send("Previous scraper loop was cleared.")
+    clearInterval(client.scraper)
+  }
+  if (args[0]) {
+    return message.channel.send("Scraping ignored due to inclusion of first argument.")
+  }
 
   client.awaitReply(message, "Please send an ID to start scraping items from.").then(reply => {
     if (!parseInt(reply)) {
