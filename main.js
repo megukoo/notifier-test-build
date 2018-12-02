@@ -15,9 +15,12 @@ const {promisify} = require("util");
 const util = require("util")
 const readdir = promisify(require("fs").readdir);
 const Enmap = require("enmap");
+const bodyParser = require('body-parser')
+const express = require("express");
 
 const config = require('./config.js')
 
+var app = express();
 var rediscli = redis.createClient({url: process.env.REDIS_URL})
 client.redisClient = rediscli
 
@@ -34,6 +37,7 @@ var prefix = "$"
 
 require("./modules/functions.js")(client)
 
+// Ready event to load sources
 client.on("ready", async () => {
   // await client.wait(2500)
   console.log("The client is ready and has loaded.")
@@ -73,6 +77,21 @@ client.on("ready", async () => {
   }
 })
 
+// Set up the HTTP server
+app.use(bodyParser.json())
+
+app.get("/notifiertester", function (req, res) {
+  let body = req.body
+  
+  if (!body.access || body.access !== process.env.accessKey) {
+   res.status('403').send("Invalid authentication key") 
+  }
+  if (body.access == process.env.accessKey) {
+    res.send({data: "pretty overpowered data!"})
+  }
+})
+
+// Initialize the client
 const init = async () => {
   const cmdFiles = await readdir("./commands/");
   client.logger.log(`Loading ${cmdFiles.length} commands.`);
