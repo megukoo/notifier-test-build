@@ -79,6 +79,12 @@ client.on("ready", async () => {
 
 // Set up the HTTP server
 app.use(bodyParser.json())
+app.set('env', 'production')
+
+app.listen(process.env.PORT || 3000, function() {
+  console.log("Running on port " + process.env.PORT)
+})
+
 
 app.get("/notifiertester", function (req, res) {
   let body = req.body
