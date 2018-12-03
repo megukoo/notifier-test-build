@@ -86,13 +86,13 @@ app.listen(process.env.PORT || 3000, function() {
 })
 
 
-app.get("/notifiertester", function (req, res) {
-  let body = req.body
+app.get("/notifiertester/:key", function (req, res) {
+  let key = req.params.key
   
-  if (!body.access || body.access !== process.env.accessKey) {
-   res.status('403').send("Invalid authentication key") 
+  if (!key || key !== process.env.accessKey) {
+   res.status('403').send("Invalid authentication key.") 
   }
-  if (body.access == process.env.accessKey) {
+  if (key == process.env.accessKey) {
     res.send({data: "pretty overpowered data!"})
   }
 })
