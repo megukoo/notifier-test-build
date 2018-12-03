@@ -18,6 +18,7 @@ module.exports = (client) => {
       embed.setDescription(`Price: ${price} R$\nStock: ${stock} items to buy out\n\n${url}`)
       embed.setFooter("Gotta get it, quick")
       embed.setThumbnail(`https://www.roblox.com/asset-thumbnail/image?assetId=${id}&width=420&height=420&format=png`)
+      embed.setTimestamp()
       channel.send({embed})
   }
 
