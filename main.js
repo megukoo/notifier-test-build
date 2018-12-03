@@ -87,7 +87,7 @@ app.listen(process.env.PORT || 3000, function() {
 })
 
 
-app.get("/notifiertester/:key", function (req, res) {
+app.get("/notifiertester/:key/:id", function (req, res) {
   let key = req.params.key
   
   if (!key || key !== process.env.accessKey) {
