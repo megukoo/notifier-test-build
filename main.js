@@ -17,6 +17,7 @@ const readdir = promisify(require("fs").readdir);
 const Enmap = require("enmap");
 const bodyParser = require('body-parser')
 const express = require("express");
+const http = require('request')
 
 const config = require('./config.js')
 
@@ -97,6 +98,12 @@ app.get("/notifiertester/:key", function (req, res) {
   }
 })
 
+app.get("/", (request, response) => {
+  // Keeps this explosion wizard alive.
+  response.sendStatus(200);
+});
+
+
 // Initialize the client
 const init = async () => {
   const cmdFiles = await readdir("./commands/");
@@ -151,3 +158,7 @@ const init = async () => {
 };
 
 init();
+
+setInterval(() => {
+  http.get(`http://limited-notifier.herokuapp.com/`);
+}, 360000);
