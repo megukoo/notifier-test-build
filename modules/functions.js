@@ -15,7 +15,7 @@ module.exports = (client) => {
         let desc = ""
         let url = "https://www.roblox.com/catalog/" + id
         embed.setTitle(`${title || name}`)
-        if (parseInt(price) {
+        if (parseInt(price)) {
           if (price == 0) {
             desc = desc + `FREE!`
           } else {
@@ -47,7 +47,7 @@ module.exports = (client) => {
           price: price,
           header: title
         }
-        if (parseInt(client.notifs[id].price) {
+        if (parseInt(client.notifs[id].price)) {
           if (client.notifs[id].price == 0) {
             client.notifs[id].price = "FREE!"
           } else {
