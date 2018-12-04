@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 exports.run = (client, message, args, level) => {
-  if (!message.channel.type == 'dm') {
+  if (message.channel.type !== 'dm') {
     message.channel.send("Now now, we don't want to leak IPs do we? Go to my DMs.")
     return
   }

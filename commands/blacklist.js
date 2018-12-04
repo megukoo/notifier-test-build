@@ -5,7 +5,7 @@ exports.run = (client, message, args, level) => {
   if (!ip) {
     return message.channel.send("No IP provided.")
   }
-  if (!message.channel.type == 'dm') {
+  if (message.channel.type !== 'dm') {
     message.channel.send("Now now, we don't want to leak IPs do we? Go to my DMs.")
     if (ip) {
       message.delete()
