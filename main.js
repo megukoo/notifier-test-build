@@ -102,7 +102,7 @@ app.listen(process.env.PORT || 3000, function() {
 
 
 app.post("/notifiertester", function (req, res) {
-  console.log(req.connection, res)
+  console.log(req.headers, res)
   let body = req.body
   let ipOrigin = body.ip
   let userId = body.userId
