@@ -7,37 +7,76 @@ const disc = require("discord.js")
 module.exports = (client) => {
 
   // Dependency
-  client.sendItemEmbed = function (name, id, stock, price, channel, title) {
-      const embed = new disc.RichEmbed()
-      embed.setColor('GREEN')
-      stock = stock || "No"
-      price = price || "Unknown"
-      let url = "https://www.roblox.com/catalog/" + id
-      embed.setTitle(`${title || name}`)
-      // embed.setURL(`https://www.roblox.com/catalog/${id}`)
-      embed.setDescription(`Price: ${price} R$\nStock: ${stock} items to buy out\n\n${url}`)
-      embed.setFooter("Gotta get it, quick")
-      embed.setThumbnail(`https://www.roblox.com/asset-thumbnail/image?assetId=${id}&width=420&height=420&format=png`)
-      embed.setTimestamp()
-      channel.send({embed})
-  }
+    client.sendItemEmbed = function (name, id, stock, price, channel, title) {
+        const embed = new disc.RichEmbed()
+        embed.setColor('GREEN')
+        stock = stock || ""
+        price = price || "Unknown"
+        let desc = ""
+        let url = "https://www.roblox.com/catalog/" + id
+        embed.setTitle(`${title || name}`)
+        if (parseInt(price) {
+          if (price == 0) {
+            desc = desc + `FREE!`
+          } else {
+            desc = desc + `${price}R$\n`
+          }
+        }
+        if (parseInt(stock)) {
+          desc = desc + `Item stock: ${stock}\n`
+        }
+        if (title) {
+          desc = desc + name
+        }
+        // embed.setURL(`https://www.roblox.com/catalog/${id}`)
+        embed.setDescription(desc)
+        embed.setFooter("Gotta get it, quick")
+        embed.setThumbnail(`https://www.roblox.com/asset-thumbnail/image?assetId=${id}&width=420&height=420&format=png`)
+        embed.setTimestamp()
+        channel.send({embed})
+    }
+
+    client.addNotif = function(name, id, prodId, stock, price, title) {
+      if (!client.notifs[id]) {
+        client.notifs[id] = {
+          created: Date.now(),
+          name: name,
+          id: id,
+          productId: prodId,
+          stock: stock,
+          price: price,
+          header: title
+        }
+        if (parseInt(client.notifs[id].price) {
+          if (client.notifs[id].price == 0) {
+            client.notifs[id].price = "FREE!"
+          } else {
+            client.notifs[id].price = `${price}R$\n`
+          }
+        }
+        if (parseInt(client.notifs[id].stock)) {
+          client.notifs[id].stock = `Item stock: ${stock}\n`
+        }
+        console.log("Created notification!")
+      }
+    }
 
     client.permlevel = (message, data) => {
-    let permlvl = 0;
+      let permlvl = 0;
 
-    const permOrder = client.config.permLevels.slice(0).sort((p, c) => p.level < c.level ? 1 : -1);
+      const permOrder = client.config.permLevels.slice(0).sort((p, c) => p.level < c.level ? 1 : -1);
 
-    while (permOrder.length) {
-      const currentLevel = permOrder.shift();
-      if (message.guild && currentLevel.guildOnly) continue;
+      while (permOrder.length) {
+        const currentLevel = permOrder.shift();
+        if (message.guild && currentLevel.guildOnly) continue;
 
-        if (currentLevel.check(message, client, data) ) {
-        permlvl = currentLevel.level;
-         break
-        }
+          if (currentLevel.check(message, client, data) ) {
+          permlvl = currentLevel.level;
+           break
+          }
 
 
-    }
+      }
     return permlvl;
   };
 

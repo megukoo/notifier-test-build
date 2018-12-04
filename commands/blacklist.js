@@ -18,6 +18,11 @@ exports.run = (client, message, args, level) => {
       message.channel.send("Blacklist success!\nUnique ID: `" + auths[ip].id + '`\nUser ID: `' + auths[ip].userid + "`")
       delete auths[ip]
       client.setData("Authenticated", JSON.stringify(auths))
+      client.getData("Blacklist").then(d2 => {
+        let blacklisted = JSON.parse(d2)
+        blacklisted[ip] = true
+        console.log("Blacklisted " + ip)
+      })
     } else {
       return message.channel.send("Could not find the IP address in the database.")
     }

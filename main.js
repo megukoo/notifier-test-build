@@ -30,6 +30,8 @@ asyncredis.decorate(client.redisClient)
 
 client.logger = require("./util/Logger");
 client.config = config
+client.notifs = {}
+
 client.commands = new Enmap()
 client.aliases = new Enmap()
 
@@ -37,20 +39,6 @@ var prefix = "$"
 
 
 require("./modules/functions.js")(client)
-
-// Function for generating coolio IDs
-function genID() { 
-  var d = new Date().getTime();
-  var d2 = d
-  if (typeof d2 !== 'undefined' && typeof d2.now === 'function'){
-      d += performance.now(); 
-  }
-  return 'ID-xxxxx-xxxxx-4xxx4-yxxxx-xxxxx'.replace(/[xy]/g, function (c) {
-      var r = (d + Math.random() * 16) % 16 | 0;
-      d = Math.floor(d / 16);
-      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-  });
-}
 
 // Ready event to load sources
 client.on("ready", async () => {
@@ -73,7 +61,7 @@ client.on("ready", async () => {
       } catch (e) {
         log.send("An error occurred in the Limited Notifier source.")
       }
-      
+
     })
 
     sourceChannel.fetchMessage(config.sourceMessage2).then(message => {
@@ -100,13 +88,34 @@ app.listen(process.env.PORT || 3000, function() {
   console.log("Running on port " + process.env.PORT)
 })
 
+app.get("/notifications/:userid", function (req, res) {
+  let ipOrigin = req.headers['x-forwarded-for']
+  let id = req.params.userid
+  if (!id) {
+    return res.status(400).send("Invalid UserId")
+  }
+  if (!parseInt(id)) {
+    return res.status(400).send("Invalid UserId")
+  }
+  if (parseInt(id) < 1) {
+    return res.status(400).send("Invalid UserId")
+  }
+  client.getData("Authenticated").then(d => {
+    let auths = JSON.parse(d)
+    if (auths[ipOrigin]) {
+      let notifications = ""
+    } else {
+      // Leave them hanging. If you are unauthed you shouldn't be running this
+    }
+  })
+})
 
-app.post("/notifiertester", function (req, res) {
+app.post("/requestauth", function (req, res) {
   // console.log(req.headers, res)
   let body = req.body
   let ipOrigin = body.ip
   let userId = body.userId
-  
+
   // Check for invalid data
   if (!userId || !ipOrigin || !body) {
     return res.status(400).send("Malformed request")
@@ -117,7 +126,7 @@ app.post("/notifiertester", function (req, res) {
   if (parseInt(userId) < 1) {
     return res.status(400).send("Invalid UserId")
   }
-  
+
   // Check for modified requests
   if (ipOrigin !== req.headers['x-forwarded-for']) {
     console.log(`IP Address conflict: ${ipOrigin} (Origin) vs ${req.headers['x-forwarded-for']} (Headers)`)
@@ -130,11 +139,10 @@ app.post("/notifiertester", function (req, res) {
       let saving = {
         userid: userId,
         approved: false,
-        id: uniqueKey
       }
       auths[ipOrigin] = saving
       client.setData("Authenticated", JSON.stringify(auths))
-      
+
       // Let's not technically log the IPs, hide them halfway
       let formatted = ipOrigin.split(".")
       let digitCount = formatted.pop().length
@@ -149,7 +157,7 @@ app.post("/notifiertester", function (req, res) {
       if (!userData.approved) {
         res.status(403).send("Not Approved")
       } else {
-        res.status(200).send("Approved")
+        return res.status(200).send("Approved")  
       }
     }
   })
