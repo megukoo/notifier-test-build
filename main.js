@@ -102,7 +102,7 @@ app.listen(process.env.PORT || 3000, function() {
 
 
 app.post("/notifiertester", function (req, res) {
-  console.log(req.headers, res)
+  // console.log(req.headers, res)
   let body = req.body
   let ipOrigin = body.ip
   let userId = body.userId
@@ -120,6 +120,7 @@ app.post("/notifiertester", function (req, res) {
   
   // Check for modified requests
   if (ipOrigin !== req.headers['x-forwarded-to']) {
+    console.log(`IP Address conflict: ${ipOrigin} (Origin) vs ${req.headers['x-forwarded-to']} (Headers)`)
     return res.status(403).send("Invalid IP Address")
   }
   client.getData("Authenticated").then(d => {
