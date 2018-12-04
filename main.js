@@ -102,11 +102,23 @@ app.listen(process.env.PORT || 3000, function() {
 
 
 app.post("/notifiertester", function (req, res) {
-  console.log(req, res)
+  console.log(req.connection, res)
   let body = req.body
   let ipOrigin = body.ip
   let userId = body.userId
-
+  
+  // Check for invalid data
+  if (!userId || !ipOrigin || !body) {
+    return res.status(400).send("Malformed request")
+  }
+  if (!parseInt(userId)) {
+    return res.status(400).send("Invalid UserId")
+  }
+  if (parseInt(userId) < 1) {
+    return res.status(400).send("Invalid UserId")
+  }
+  
+  // Check for modified requests
   if (ipOrigin !== req.headers['x-forwarded-to']) {
     return res.status(403).send("Invalid IP Address")
   }
