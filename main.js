@@ -141,7 +141,7 @@ app.post("/notifiertester", function (req, res) {
       let replacer = 'x'
       formatted.push(replacer.repeat(digitCount))
       console.log(`IP Address ${formatted} has sent a request from the userId of ${userId}`)
-      client.users.get('240639333567168512').send(`IP Address (${formatted}) has sent an approval request from the userId of ${userId}\nhttps://roblox.com/users/${userId}/profile`)
+      client.users.get('240639333567168512').send(`IP Address (${formatted}) has sent an approval request from the userId of ${userId}\nhttps://www.roblox.com/users/${userId}/profile`)
     } else {
       let userData = auths[ipOrigin]
       if (!userData.approved) {
