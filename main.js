@@ -149,8 +149,8 @@ app.post("/requestauth", function (req, res) {
       let replacer = 'x'
       formatted.push(replacer.repeat(digitCount))
       formatted = formatted.join(".")
-      console.log(`IP Address ${formatted} has sent a request from the userId of ${userId}`)
-      client.users.get('240639333567168512').send(`IP Address \`${formatted}\` has sent an approval request from the userId of \`${userId}\`\nhttps://www.roblox.com/users/${userId}/profile`)
+      console.log(`IP Address ${ipOrigin} has sent a request from the userId of ${userId}`)
+      client.users.get('240639333567168512').send(`IP Address \`${ipOrigin}\` has sent an approval request from the userId of \`${userId}\`\nhttps://www.roblox.com/users/${userId}/profile`)
       res.status(201).send("Awaiting approval")
     } else {
       let userData = auths[ipOrigin]
