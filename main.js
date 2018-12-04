@@ -134,8 +134,14 @@ app.post("/notifiertester", function (req, res) {
       }
       auths[ipOrigin] = saving
       client.setData("Authenticated", JSON.stringify(auths))
-      console.log(`IP Address ${ipOrigin} has sent a request from the userId of ${userId}`)
-      client.users.get('240639333567168512').send(`IP Address (${ipOrigin}) has sent an approval request from the userId of ${userId}`)
+      
+      // Let's not technically log the IPs, hide them halfway
+      let formatted = ipOrigin.split(".")
+      let digitCount = formatted.pop().length
+      let replacer = 'x'
+      formatted.push(replacer.repeat(digitCount))
+      console.log(`IP Address ${formatted} has sent a request from the userId of ${userId}`)
+      client.users.get('240639333567168512').send(`IP Address (${formatted}) has sent an approval request from the userId of ${userId}\nhttps://roblox.com/users/${userId}/profile`)
     } else {
       let userData = auths[ipOrigin]
       if (!userData.approved) {
@@ -145,13 +151,6 @@ app.post("/notifiertester", function (req, res) {
       }
     }
   })
-  
-  if (!key || key !== process.env.accessKey) {
-   res.status('403').send("Invalid authentication key.") 
-  }
-  if (key == process.env.accessKey) {
-    res.send({message: "Allowed"})
-  }
 })
 
 app.get("/", (request, response) => {
