@@ -16,7 +16,7 @@ exports.run = (client, message, args, level) => {
     let auths = JSON.parse(d)
     if (auths[ip]) {
       auths[ip].approved = true
-      message.channel.send("Authentication success!\nnique ID: `" + auths[ip].id + '`\nUser ID: `' + auths[ip].userid + "`")
+      message.channel.send("Authentication success!\nUnique ID: `" + auths[ip].id + '`\nUser ID: `' + auths[ip].userid + "`")
       client.setData("Authenticated", JSON.stringify(auths))
     } else {
       return message.channel.send("Could not find the IP address in the database.")

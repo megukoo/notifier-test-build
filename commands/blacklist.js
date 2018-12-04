@@ -15,7 +15,7 @@ exports.run = (client, message, args, level) => {
   client.getData("Authenticated").then(d => {
     let auths = JSON.parse(d)
     if (auths[ip]) {
-      message.channel.send("Blacklist success!\nnique ID: `" + auths[ip].id + '`\nUser ID: `' + auths[ip].userid + "`")
+      message.channel.send("Blacklist success!\nUnique ID: `" + auths[ip].id + '`\nUser ID: `' + auths[ip].userid + "`")
       delete auths[ip]
       client.setData("Authenticated", JSON.stringify(auths))
     } else {
