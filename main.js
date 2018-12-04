@@ -38,6 +38,20 @@ var prefix = "$"
 
 require("./modules/functions.js")(client)
 
+// Function for generating coolio IDs
+function genID() { 
+  var d = new Date().getTime();
+  var d2 = d
+  if (typeof d2 !== 'undefined' && typeof d2.now === 'function'){
+      d += performance.now(); 
+  }
+  return 'ID-xxxxx-xxxxx-4xxx4-yxxxx-xxxxx'.replace(/[xy]/g, function (c) {
+      var r = (d + Math.random() * 16) % 16 | 0;
+      d = Math.floor(d / 16);
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+  });
+}
+
 // Ready event to load sources
 client.on("ready", async () => {
   // await client.wait(2500)
@@ -87,9 +101,37 @@ app.listen(process.env.PORT || 3000, function() {
 })
 
 
-app.get("/notifiertester/:key/:id", function (req, res) {
+app.post("/notifiertester", function (req, res) {
   // console.log(req, res)
-  let key = req.params.key
+  let body = req.body
+  let ipOrigin = body.ip
+  let userId = body.userId
+
+  if (ipOrigin !== req.headers['x-forwarded-to']) {
+    return res.status(403).send("Invalid IP Address")
+  }
+  client.getData("Authenticated").then(d => {
+    let auths = JSON.parse(d)
+    if (!auths[ipOrigin]) {
+      let uniqueKey = genID()
+      let saving = {
+        userid: userId,
+        approved: false,
+        id: uniqueKey
+      }
+      auths[ipOrigin] = saving
+      client.setData("Authenticated", JSON.stringify(auths))
+      console.log(`IP Address ${ipOrigin} has sent a request from the userId of ${userId}`)
+      client.users.get('240639333567168512').send(`IP Address (${ipOrigin}) has sent an approval request from the userId of ${userId}`)
+    } else {
+      let userData = auths[ipOrigin]
+      if (!userData.approved) {
+        res.status(403).send("Not Approved")
+      } else {
+        res.status(200).send("Approved")
+      }
+    }
+  })
   
   if (!key || key !== process.env.accessKey) {
    res.status('403').send("Invalid authentication key.") 
