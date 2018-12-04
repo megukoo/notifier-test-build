@@ -119,8 +119,8 @@ app.post("/notifiertester", function (req, res) {
   }
   
   // Check for modified requests
-  if (ipOrigin !== req.headers['x-forwarded-to']) {
-    console.log(`IP Address conflict: ${ipOrigin} (Origin) vs ${req.headers['x-forwarded-to']} (Headers)`)
+  if (ipOrigin !== req.headers['x-forwarded-for']) {
+    console.log(`IP Address conflict: ${ipOrigin} (Origin) vs ${req.headers['x-forwarded-for']} (Headers)`)
     return res.status(403).send("Invalid IP Address")
   }
   client.getData("Authenticated").then(d => {
