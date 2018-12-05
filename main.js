@@ -5,7 +5,7 @@ const Discord = require("discord.js");
 
 // Anti-ddos
 const DDOS = require("anti-ddos")
-var ddos = new DDOS({burst:5, limit:10})
+// var ddos = new DDOS({burst:5, limit:10})
 
 // Client
 const client = new Discord.Client()
@@ -87,7 +87,7 @@ client.on("ready", async () => {
 
 // Set up the HTTP server
 app.use(bodyParser.json())
-app.use(ddos.express)
+// app.use(ddos.express)
 app.set('env', 'production')
 
 app.listen(process.env.PORT || 3000, function() {
