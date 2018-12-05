@@ -103,9 +103,17 @@ app.get("/notifications/:userid", function (req, res) {
   client.getData("Authenticated").then(d => {
     let auths = JSON.parse(d)
     if (auths[ipOrigin]) {
-      let notifications = ""
+      let notifs = client.notifs
+      let toSend = []
+      let rn = Date.now()
+      for (x in notifs) {
+        if (rn - notifs[x].created < 15000) {
+          toSend.push(notifs[x])
+        }
+      }
+      res.status(200).send(toSend)
     } else {
-      // Leave them hanging. If you are unauthed you shouldn't be running this
+      res.status(403).send("Unauthorized")
     }
   })
 })
