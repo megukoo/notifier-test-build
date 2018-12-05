@@ -38,7 +38,7 @@ module.exports = (client) => {
         channel.send({embed})
     }
 
-    client.addNotif = function(name, id, prodId, stock, price, title) {
+    client.addNotif = function(name, id, prodId, stock, price, title, isLim) {
       if (!client.notifs[id]) {
         client.notifs[id] = {
           created: Date.now(),
@@ -47,7 +47,8 @@ module.exports = (client) => {
           productId: prodId,
           stock: stock,
           price: price,
-          title: title
+          title: title,
+	  isLim: isLim
         }
         if (parseInt(client.notifs[id].stock)) {
           client.notifs[id].stock = `Item stock: ${stock}\n`
