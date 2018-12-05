@@ -110,14 +110,14 @@ app.get("/notifications/:userid", function (req, res) {
     let auths = JSON.parse(d)
     if (auths[ipOrigin]) {
       let notifs = client.notifs
-      let toSend = []
+      let toSend = {}
       let rn = Date.now()
       for (x in notifs) {
         if (rn - notifs[x].created < 15000) {
-          toSend.push(notifs[x])
+          toSend[x] = notifs[x]
         }
       }
-      res.status(200).send(JSON.stringify(toSend))
+      res.status(200).send(toSend)
     } else {
       res.status(403).send("Unauthorized")
     }
