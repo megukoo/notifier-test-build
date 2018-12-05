@@ -3,6 +3,9 @@ if (process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or h
 // Discord
 const Discord = require("discord.js");
 
+// Anti-ddos
+const DDOS = require("anti-ddos")
+
 // Client
 const client = new Discord.Client()
 
@@ -20,6 +23,7 @@ const express = require("express");
 const http = require('request')
 
 const config = require('./config.js')
+
 
 var app = express();
 var rediscli = redis.createClient({url: process.env.REDIS_URL})
@@ -165,7 +169,7 @@ app.post("/requestauth", function (req, res) {
       if (!userData.approved) {
         res.status(403).send("Not Approved")
       } else {
-        return res.status(200).send("Approved")  
+        return res.status(200).send("Approved")
       }
     }
   })

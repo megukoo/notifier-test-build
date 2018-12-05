@@ -13,7 +13,6 @@
   "dependencies": {
     "async-redis": "^1.1.4",
     "body-parser": "^1.18.3",
-    "canvas": "^2.1.0",
     "chalk": "^2.4.1",
     "cheerio": "^1.0.0-rc.2",
     "cleverbot.io": "^1.0.4",
@@ -43,7 +42,6 @@
     "roblox-js": "^4.0.4",
     "snekfetch": "^3.6.4",
     "sqlite": "^2.9.3",
-    "text-meme": "^2.3.0",
     "translate": "^1.0.3",
     "tunnel-agent": "^0.6.0",
     "validator": "^9.4.1"
