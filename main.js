@@ -4,8 +4,8 @@ if (process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or h
 const Discord = require("discord.js");
 
 // Anti-ddos
-// const DDOS = require("anti-ddos")
-// Can't install till I figure out this dumb npm error
+const DDOS = require("anti-ddos")
+var ddos = new DDOS({burst:5, limit:10})
 
 // Client
 const client = new Discord.Client()
@@ -87,6 +87,7 @@ client.on("ready", async () => {
 
 // Set up the HTTP server
 app.use(bodyParser.json())
+app.use(ddos.express)
 app.set('env', 'production')
 
 app.listen(process.env.PORT || 3000, function() {
