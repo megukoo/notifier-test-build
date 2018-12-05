@@ -4,7 +4,8 @@ if (process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or h
 const Discord = require("discord.js");
 
 // Anti-ddos
-const DDOS = require("anti-ddos")
+// const DDOS = require("anti-ddos")
+// Can't install till I figure out this dumb npm error
 
 // Client
 const client = new Discord.Client()
