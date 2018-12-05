@@ -47,7 +47,7 @@ module.exports = (client) => {
           productId: prodId,
           stock: stock,
           price: price,
-          header: title
+          title: title
         }
         if (parseInt(client.notifs[id].stock)) {
           client.notifs[id].stock = `Item stock: ${stock}\n`
