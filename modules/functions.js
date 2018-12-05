@@ -22,12 +22,14 @@ module.exports = (client) => {
             desc = desc + `${price}R$\n`
           }
         }
+	desc = desc + url + "\n"
         if (parseInt(stock)) {
           desc = desc + `Item stock: ${stock}\n`
         }
         if (title) {
           desc = desc + name
         }
+	
         // embed.setURL(`https://www.roblox.com/catalog/${id}`)
         embed.setDescription(desc)
         embed.setFooter("Gotta get it, quick")
@@ -46,13 +48,6 @@ module.exports = (client) => {
           stock: stock,
           price: price,
           header: title
-        }
-        if (parseInt(client.notifs[id].price)) {
-          if (client.notifs[id].price == 0) {
-            client.notifs[id].price = "FREE!"
-          } else {
-            client.notifs[id].price = `${price}R$\n`
-          }
         }
         if (parseInt(client.notifs[id].stock)) {
           client.notifs[id].stock = `Item stock: ${stock}\n`
