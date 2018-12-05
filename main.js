@@ -117,7 +117,7 @@ app.get("/notifications/:userid", function (req, res) {
           toSend.push(notifs[x])
         }
       }
-      res.status(200).send(toSend)
+      res.status(200).send(JSON.stringify(toSend))
     } else {
       res.status(403).send("Unauthorized")
     }
