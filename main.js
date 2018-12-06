@@ -265,6 +265,27 @@ const init = async () => {
 init();
 
 setInterval(() => {
-  http.get(`http://limited-notifier.herokuapp.com/`);
-  updateActive()
+
 }, 360000);
+
+let magicNumber = 24
+let current = 0
+
+setInterval(() => {
+  // Memory visualization
+  let usage = client.channels.get('520354845283188745')
+  let total = client.channels.get('520354795631149078')
+  if (usage && total) {
+    let memUse = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2) + "MB"
+    let memHeap = (process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2) + "MB"
+
+    usage.edit({name: "Memory Usage: " + memUse})
+    total.edit({name: "Memory Total: " + memHeap})
+  }
+  current = current + 1
+  if (current >= magicNumber) {
+    current = 0
+    http.get(`http://limited-notifier.herokuapp.com/`);
+    updateActive()
+  }
+}, 15000)
