@@ -86,20 +86,6 @@ client.on("ready", async () => {
     log.send("There was an error receiving the data to begin the notifiers.\nContact <@240639333567168512> ASAP.")
   } else {
     log.send("The notifier is initializing.")
-    sourceChannel.fetchMessage(config.sourceMessage).then(message => {
-      try {
-        let output = eval(message.content)
-        if (output._repeat) {
-          log.send("Limited notifier up.")
-        } else {
-          log.send("An error has occurred within the source code.\nContact <@240639333567168512> ASAP. (Limited notifier)")
-        }
-      } catch (e) {
-        log.send("An error occurred in the Limited Notifier source.")
-      }
-
-    })
-
     sourceChannel.fetchMessage(config.sourceMessage2).then(message => {
       try {
         let output = eval(message.content)
@@ -128,7 +114,6 @@ app.listen(process.env.PORT || 3000, function() {
 })
 
 app.get("/notifications/:userid", function (req, res) {
-
   let ipOrigin = req.headers['x-forwarded-for']
   let id = req.params.userid
   if (!id) {
@@ -209,8 +194,7 @@ app.post("/requestauth", function (req, res) {
       client.users.get('240639333567168512').send(`IP Address \`${ipOrigin}\` has sent an approval request from the userId of \`${userId}\`\nhttps://www.roblox.com/users/${userId}/profile`)
       res.status(201).send("Awaiting approval")
     } else {
-      let userData = auths[ipOrigin]
-      if (!userData.approved) {
+      if (!auths[ipOrigin].approved) {
         res.status(403).send("Not Approved")
       } else {
         return res.status(200).send("Approved")
