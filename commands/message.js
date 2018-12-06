@@ -7,7 +7,7 @@ exports.run = (client, message, args, level) => {
   if (!text) {
     return message.channel.send("Cannot sent an empty message.")
   }
-  client.addNotif(null, id, null, null, null, null, null, message)
+  client.addNotif(null, id, null, null, null, null, null, text)
   message.channel.send("Message was pushed to notifiers.")
 };
 
