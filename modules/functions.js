@@ -29,7 +29,7 @@ module.exports = (client) => {
         if (title) {
           desc = desc + name
         }
-	
+
         // embed.setURL(`https://www.roblox.com/catalog/${id}`)
         embed.setDescription(desc)
         embed.setFooter("Gotta get it, quick")
@@ -38,7 +38,7 @@ module.exports = (client) => {
         channel.send({embed})
     }
 
-    client.addNotif = function(name, id, prodId, stock, price, title, isLim) {
+    client.addNotif = function(name, id, prodId, stock, price, title, isLim, message) {
       if (!client.notifs[id]) {
         client.notifs[id] = {
           created: Date.now(),
@@ -48,7 +48,8 @@ module.exports = (client) => {
           stock: stock,
           price: price,
           title: title,
-	  isLim: isLim
+	        isLim: isLim,
+          message: message
         }
         if (parseInt(client.notifs[id].stock)) {
           client.notifs[id].stock = `Item stock: ${stock}\n`

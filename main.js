@@ -36,6 +36,7 @@ asyncredis.decorate(client.redisClient)
 client.logger = require("./util/Logger");
 client.config = config
 client.notifs = {}
+client.connected = {}
 
 client.commands = new Enmap()
 client.aliases = new Enmap()
@@ -95,6 +96,7 @@ app.listen(process.env.PORT || 3000, function() {
 })
 
 app.get("/notifications/:userid", function (req, res) {
+
   let ipOrigin = req.headers['x-forwarded-for']
   let id = req.params.userid
   if (!id) {
@@ -106,15 +108,23 @@ app.get("/notifications/:userid", function (req, res) {
   if (parseInt(id) < 1) {
     return res.status(400).send("Invalid UserId")
   }
+  if (!client.connected[ipOrigin]) {
+    client.connected[ipOrigin] = {
+      last: Date.now()
+    }
+  } else {
+    client.connected[ipOrigin].last = Date.now()
+  }
   client.getData("Authenticated").then(d => {
     let auths = JSON.parse(d)
     if (auths[ipOrigin]) {
-      let notifs = client.notifs
       let toSend = {}
       let rn = Date.now()
-      for (x in notifs) {
-        if (rn - notifs[x].created < 15000) {
-          toSend[x] = notifs[x]
+      for (x in client.notifs) {
+        if (rn - client.notifs[x].created < 15000) {
+          toSend[x] = client.notifs[x]
+        } else {
+          delete toSend[x]
         }
       }
       res.status(200).send(toSend)
@@ -150,11 +160,10 @@ app.post("/requestauth", function (req, res) {
     let auths = JSON.parse(d)
     if (!auths[ipOrigin]) {
       let uniqueKey = genID()
-      let saving = {
+      auths[ipOrigin] = {
         userid: userId,
         approved: false,
       }
-      auths[ipOrigin] = saving
       client.setData("Authenticated", JSON.stringify(auths))
 
       // Let's not technically log the IPs, hide them halfway
@@ -240,4 +249,17 @@ init();
 
 setInterval(() => {
   http.get(`http://limited-notifier.herokuapp.com/`);
+  let activeUsers = 0
+  for (x in client.connected) {
+    let user = client.connected[x]
+    if (Date.now() - user.last > 30000) {
+      delete client.connected[x]
+    } else {
+      activeUsers = activeUsers + 1
+    }
+  }
+  let channel = client.channels.get('520048407646306315')
+  if (channel) {
+    channel.edit({name: "Connected Users: " + activeUsers})
+  }
 }, 360000);
