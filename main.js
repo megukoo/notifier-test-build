@@ -46,6 +46,22 @@ var prefix = "$"
 
 require("./modules/functions.js")(client)
 
+function updateActive() {
+  let activeUsers = 0
+  for (x in client.connected) {
+    let user = client.connected[x]
+    if (Date.now() - user.last > 30000) {
+      delete client.connected[x]
+    } else {
+      activeUsers = activeUsers + 1
+    }
+  }
+  let channel = client.channels.get('520048407646306315')
+  if (channel) {
+    channel.edit({name: "Connected Users: " + activeUsers})
+  }
+}
+
 // Ready event to load sources
 client.on("ready", async () => {
   // await client.wait(2500)
@@ -115,6 +131,7 @@ app.get("/notifications/:userid", function (req, res) {
   } else {
     client.connected[ipOrigin].last = Date.now()
   }
+  updateActive()
   client.getData("Authenticated").then(d => {
     let auths = JSON.parse(d)
     if (auths[ipOrigin]) {
@@ -249,17 +266,5 @@ init();
 
 setInterval(() => {
   http.get(`http://limited-notifier.herokuapp.com/`);
-  let activeUsers = 0
-  for (x in client.connected) {
-    let user = client.connected[x]
-    if (Date.now() - user.last > 30000) {
-      delete client.connected[x]
-    } else {
-      activeUsers = activeUsers + 1
-    }
-  }
-  let channel = client.channels.get('520048407646306315')
-  if (channel) {
-    channel.edit({name: "Connected Users: " + activeUsers})
-  }
+  updateActive()
 }, 360000);
