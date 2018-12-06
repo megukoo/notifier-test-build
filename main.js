@@ -46,6 +46,20 @@ var prefix = "$"
 
 require("./modules/functions.js")(client)
 
+// Function to generate IDs
+function genID() {
+  var d = new Date().getTime();
+  var d2 = d
+  if (typeof d2 !== 'undefined' && typeof d2.now === 'function'){
+      d += performance.now();
+  }
+  return 'ID-xxxxx-xxxxx-4xxx4-yxxxx-xxxxx'.replace(/[xy]/g, function (c) {
+      var r = (d + Math.random() * 16) % 16 | 0;
+      d = Math.floor(d / 16);
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+  });
+}
+
 function updateActive() {
   let activeUsers = 0
   for (x in client.connected) {
@@ -99,6 +113,8 @@ client.on("ready", async () => {
         log.send("An error occurred in the Item Notifier source.")
       }
     })
+
+    updateActive()
   }
 })
 
