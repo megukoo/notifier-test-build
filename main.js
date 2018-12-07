@@ -142,10 +142,11 @@ app.get("/notifications/:userid", function (req, res) {
         if (rn - client.notifs[x].created < 15000) {
           toSend[x] = client.notifs[x]
         } else {
-          delete toSend[x]
+          delete client.notifs[x]
         }
       }
       res.status(200).send(toSend)
+      toSend = null
     } else {
       res.status(403).send("Unauthorized")
     }
@@ -177,7 +178,7 @@ app.post("/requestauth", function (req, res) {
   client.getData("Authenticated").then(d => {
     let auths = JSON.parse(d)
     if (!auths[ipOrigin]) {
-      let uniqueKey = genID()
+      // let uniqueKey = genID()
       auths[ipOrigin] = {
         userid: userId,
         approved: false,
