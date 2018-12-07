@@ -104,6 +104,18 @@ client.on("ready", async () => {
   }
 })
 
+// Add member roles for my server
+client.on('guildMemberAdd', member => {
+  let role = '520418075355381761'
+  let guild = member.guild
+  if (guild) {
+    if (guild.roles.get(role)) {
+      role = guild.roles.get(role)
+      member.addRole(role)
+    }
+  }
+})
+
 // Set up the HTTP server
 app.use(bodyParser.json())
 // app.use(ddos.express)
