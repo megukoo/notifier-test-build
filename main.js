@@ -285,6 +285,10 @@ setInterval(() => {
 let magicNumber = 24
 let current = 0
 
+setTimeout(function(){
+    client.setData('keepalive', 1);
+}, 1000);
+
 setInterval(() => {
   // Memory visualization
   let usage = client.channels.get('521820168284798976')
