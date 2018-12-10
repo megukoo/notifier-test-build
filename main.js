@@ -41,7 +41,7 @@ client.connected = {}
 client.commands = new Enmap()
 client.aliases = new Enmap()
 
-var prefix = "$"
+var prefix = "testumin "
 
 
 require("./modules/functions.js")(client)
@@ -122,7 +122,7 @@ app.use(bodyParser.json())
 // app.use(ddos.express)
 app.set('env', 'production')
 
-app.listen(process.env.PORT || 3000, function() {
+app.listen(process.env.port || 300, function() {
   console.log("Running on port " + process.env.MEGUMIN_PORT)
 })
 
