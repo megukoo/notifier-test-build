@@ -15,7 +15,6 @@ exports.run = (client, message, args, level) => { // eslint-disable-line no-unus
   .addField("Uptime", duration)
   .addField("Discord.js Version", "v" + version)
   .addField("Node Version", process.version)
-  .addField("Build Version", process.env.HEROKU_RELEASE_VERSION)
   .setColor('ORANGE')
   .setTimestamp()
 

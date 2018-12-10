@@ -27,7 +27,7 @@ const config = require('./config.js')
 
 
 var app = express();
-var rediscli = redis.createClient({url: process.env.REDIS_URL})
+var rediscli = redis.createClient({password: process.env.REDIS_PASS})
 client.redisClient = rediscli
 
 asyncredis.decorate(client.redisClient)
@@ -46,7 +46,6 @@ var prefix = "$"
 
 require("./modules/functions.js")(client)
 
-console.log("TOKEN CHECK: " + JSON.stringify(process.env))
 // Function to generate IDs
 function genID() {
   var d = new Date().getTime();
@@ -123,7 +122,7 @@ app.use(bodyParser.json())
 app.set('env', 'production')
 
 app.listen(process.env.PORT || 3000, function() {
-  console.log("Running on port " + process.env.PORT)
+  console.log("Running on port " + process.env.MEGUMIN_PORT)
 })
 
 app.get("/notifications/:userid", function (req, res) {
