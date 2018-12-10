@@ -27,7 +27,7 @@ const config = require('./config.js')
 
 
 var app = express();
-var rediscli = redis.createClient({password: process.env.REDIS_PASS, host: process.env.REDIS_PORT_6379_TCP_ADDR})
+var rediscli = redis.createClient({password: process.env.REDIS_PASS, host: process.env.REDIS_PORT_6379_TCP_ADDR, port: process.env.port})
 client.redisClient = rediscli
 
 asyncredis.decorate(client.redisClient)
