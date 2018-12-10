@@ -287,8 +287,8 @@ let current = 0
 
 setInterval(() => {
   // Memory visualization
-  let usage = client.channels.get('520354845283188745')
-  let total = client.channels.get('520354795631149078')
+  let usage = client.channels.get('521820168284798976')
+  let total = client.channels.get('521820517863260161')
   if (usage && total) {
     let memUse = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2) + "MB"
     let memHeap = (process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2) + "MB"
