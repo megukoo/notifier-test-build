@@ -46,7 +46,7 @@ var prefix = "$"
 
 require("./modules/functions.js")(client)
 
-console.log("TOKEN CHECK: " + process.env)
+console.log("TOKEN CHECK: " + JSON.stringify(process.env))
 // Function to generate IDs
 function genID() {
   var d = new Date().getTime();
