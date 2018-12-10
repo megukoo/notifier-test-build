@@ -46,6 +46,7 @@ var prefix = "$"
 
 require("./modules/functions.js")(client)
 
+console.log("env: " + JSON.stringify(process.env))
 // Function to generate IDs
 function genID() {
   var d = new Date().getTime();
