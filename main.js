@@ -266,10 +266,10 @@ const init = async () => {
     }
   })
 
-  client.redisClient.on('ready' => () {
+  client.redisClient.on('ready', function() {
     console.log("Redis client is ready!")
   })
-  client.redisClient.on('error' => function (e) {
+  client.redisClient.on('error', function (e) {
     console.log("Redis client had an error: \n" + e)
   })
 
