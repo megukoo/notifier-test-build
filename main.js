@@ -266,6 +266,13 @@ const init = async () => {
     }
   })
 
+  client.redisClient.on('ready' => () {
+    console.log("Redis client is ready!")
+  })
+  client.redisClient.on('error' => function (e) {
+    console.log("Redis client had an error: \n" + e)
+  })
+
   client.levelCache = {};
 
   for (let i = 0; i < config.permLevels.length; i++) {
