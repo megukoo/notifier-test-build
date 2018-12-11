@@ -27,7 +27,13 @@ const config = require('./config.js')
 
 
 var app = express();
-var rediscli = redis.createClient({password: process.env.REDIS_PASS, host: process.env.REDIS_PORT_6379_TCP_ADDR, port: process.env.port})
+
+let redisName = "Megumin"
+let redisPass = process.env.redispass
+let redisHostPort = process.env.redishost
+
+let url = `redis://${redisName}:${redisPass}@${redisHostPort}`
+var rediscli = redis.createClient({url: rediscli})
 client.redisClient = rediscli
 
 asyncredis.decorate(client.redisClient)
@@ -76,6 +82,9 @@ function updateActive() {
     channel.edit({name: "Connected Users: " + activeUsers})
   }
 }
+client.redisClient.on('ready', function() {
+  console.log("Redis client is ready!")
+})
 
 // Ready event to load sources
 client.on("ready", async () => {
@@ -266,9 +275,7 @@ const init = async () => {
     }
   })
 
-  client.redisClient.on('ready', function() {
-    console.log("Redis client is ready!")
-  })
+  
   client.redisClient.on('error', function (e) {
     console.log("Redis client had an error: \n" + e)
   })
