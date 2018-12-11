@@ -238,7 +238,7 @@ const init = async () => {
     if (message.author.bot) return;
     if (message.content.indexOf(prefix) !== 0) return;
 
-    const args = message.content.slice(1).trim().split(/ +/g);
+    const args = message.content.slice(9).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
     // Get the user or member's permission level from the elevation
