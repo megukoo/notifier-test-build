@@ -132,7 +132,7 @@ app.use(bodyParser.json())
 // app.use(ddos.express)
 app.set('env', 'production')
 
-app.listen(process.env.port || 300, function() {
+app.listen(process.env.port2 || 6942, function() {
   console.log("Running on port " + process.env.MEGUMIN_PORT)
 })
 
@@ -278,7 +278,7 @@ const init = async () => {
 
   
   client.redisClient.on('error', function (e) {
-    console.log("Redis client had an error: \n" + e)
+    // console.log("Redis client had an error: \n" + e)
   })
 
   client.levelCache = {};
