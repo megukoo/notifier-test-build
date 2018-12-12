@@ -11,7 +11,7 @@ const DDOS = require("anti-ddos")
 const client = new Discord.Client()
 
 // Datastoring
-const redis = require('redis')
+const Redis = require('ioredis')
 const asyncredis = require('async-redis')
 
 // Other
@@ -34,11 +34,14 @@ let redisHostPort = process.env.redishost
 
 let url = `redis://${redisName}:${redisPass}@${redisHostPort}`
 let port = process.env.port
-var rediscli = redis.createClient({url: rediscli, port: port})
-client.redisClient = rediscli
+var redis = new Redis({
+  host: redisHostPort,
+  auth: redisPass,
+  port: process.env.port,
+  name: redisName
+})
 
-asyncredis.decorate(client.redisClient)
-
+client.redisClient = redis
 
 client.logger = require("./util/Logger");
 client.config = config
@@ -276,7 +279,7 @@ const init = async () => {
     }
   })
 
-  
+
   client.redisClient.on('error', function (e) {
     // console.log("Redis client had an error: \n" + e)
   })

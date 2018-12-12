@@ -28,6 +28,7 @@
     "http": "0.0.0",
     "image-recognition": "^1.1.0",
     "image-to-text": "^1.0.8",
+    "ioredis": "^4.3.0",
     "lodash": "^4.17.11",
     "mathjs": "^3.20.2",
     "moji-translate": "^1.0.8",
