@@ -33,7 +33,8 @@ let redisPass = process.env.redispass
 let redisHostPort = process.env.redishost
 
 let url = `redis://${redisName}:${redisPass}@${redisHostPort}`
-var rediscli = redis.createClient({url: rediscli})
+let port = process.env.port
+var rediscli = redis.createClient({url: rediscli, port: port})
 client.redisClient = rediscli
 
 asyncredis.decorate(client.redisClient)
@@ -52,7 +53,7 @@ var prefix = "^"
 
 require("./modules/functions.js")(client)
 
-console.log("env: " + JSON.stringify(process.env))
+// console.log("env: " + JSON.stringify(process.env))
 // Function to generate IDs
 function genID() {
   var d = new Date().getTime();
