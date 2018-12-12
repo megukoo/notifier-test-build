@@ -9,6 +9,7 @@ module.exports = (client) => {
   // Dependency
     client.sendItemEmbed = function (name, id, stock, price, channel, title) {
         const embed = new disc.RichEmbed()
+	channel = client.channels.get('516755189449883658')
         embed.setColor('GREEN')
         stock = stock || ""
         price = price || "Unknown"
