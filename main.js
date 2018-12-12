@@ -34,13 +34,7 @@ let redisHostPort = process.env.redishost
 
 let url = `redis://${redisName}:${redisPass}@${redisHostPort}`
 let port = process.env.port
-var redis = new Redis({
-  host: redisHostPort,
-  auth: redisPass,
-  port: process.env.port,
-  name: redisName,
-  maxRetriesPerRequest: null
-})
+var redis = new Redis(url)
 
 client.redisClient = redis
 
