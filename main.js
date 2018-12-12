@@ -130,7 +130,7 @@ app.use(bodyParser.json())
 // app.use(ddos.express)
 app.set('env', 'production')
 
-app.listen(process.env.port2 || 6942, function() {
+app.listen(process.env.port2 || 6942, process.env.MEGUMIN_SERVICE_PORT, function() {
   console.log("Running on port " + process.env.MEGUMIN_PORT)
 })
 
