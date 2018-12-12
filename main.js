@@ -217,7 +217,7 @@ app.post("/requestauth", function (req, res) {
   })
 })
 
-app.get("/", (request, response) => {
+app.get("/ping", (request, response) => {
   // Keeps this explosion wizard alive.
   response.sendStatus(200);
 });
@@ -310,7 +310,7 @@ setInterval(() => {
   current = current + 1
   if (current >= magicNumber) {
     current = 0
-    http.get(`http://limited-notifier.herokuapp.com/`);
+    http.get(`http://megumin-megumin.193b.starter-ca-central-1.openshiftapps.com/ping`);
     updateActive()
   }
 }, 15000)
