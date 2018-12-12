@@ -38,7 +38,8 @@ var redis = new Redis({
   host: redisHostPort,
   auth: redisPass,
   port: process.env.port,
-  name: redisName
+  name: redisName,
+  maxRetriesPerRequest: 1
 })
 
 client.redisClient = redis
