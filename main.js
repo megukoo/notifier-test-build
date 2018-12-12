@@ -225,8 +225,9 @@ app.post("/requestauth", function (req, res) {
   })
 })
 
-app.get("/ping", (request, response) => {
+app.get("/", (request, response) => {
   // Keeps this explosion wizard alive.
+  console.log("ack ponged");
   response.sendStatus(200);
 });
 
