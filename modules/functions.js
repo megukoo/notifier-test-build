@@ -106,12 +106,12 @@ module.exports = (client) => {
 	}
 
   client.getData = async (key) => {
-    let data = await client.redisClient.get(key)
+    let data = await client.redisClient.get(key).timeout(500)
     return data
   }
 
   client.setData = async (key, val) => {
-    let data = await client.redisClient.set(key, val)
+    let data = await client.redisClient.set(key, val).timeout(500)
     return data
   }
 
