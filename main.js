@@ -130,7 +130,7 @@ app.use(bodyParser.json())
 // app.use(ddos.express)
 app.set('env', 'production')
 
-app.listen(process.env.port2 || 6942, process.env.MEGUMIN_SERVICE_PORT, function() {
+app.listen(process.env.port2 || 6942, process.env.ipaddr, function() {
   console.log("Running on port " + process.env.MEGUMIN_PORT)
 })
 
@@ -317,7 +317,7 @@ setInterval(() => {
   current = current + 1
   if (current >= magicNumber) {
     current = 0
-    http.get(`http://megumin-megumin.193b.starter-ca-central-1.openshiftapps.com/ping`);
+    http.get(`http://megumin-megumin.193b.starter-ca-central-1.openshiftapps.com/`);
     updateActive()
   }
 }, 15000)
