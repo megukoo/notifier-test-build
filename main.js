@@ -27,7 +27,14 @@ const config = require('./config.js')
 
 
 var app = express();
-var rediscli = redis.createClient({password: process.env.REDIS_PASS, host: process.env.REDIS_PORT_6379_TCP_ADDR, port: process.env.port})
+
+let redisName = "Megumin"
+let redisPass = process.env.redispass
+let redisHostPort = process.env.redishost
+
+let url = `redis://${redisName}:${redisPass}@${redisHostPort}`
+let port = process.env.port
+var rediscli = redis.createClient({url: rediscli, port: port})
 client.redisClient = rediscli
 
 asyncredis.decorate(client.redisClient)
@@ -46,7 +53,7 @@ var prefix = "^"
 
 require("./modules/functions.js")(client)
 
-console.log("env: " + JSON.stringify(process.env))
+// console.log("env: " + JSON.stringify(process.env))
 // Function to generate IDs
 function genID() {
   var d = new Date().getTime();
@@ -76,6 +83,9 @@ function updateActive() {
     channel.edit({name: "Connected Users: " + activeUsers})
   }
 }
+client.redisClient.on('ready', function() {
+  console.log("Redis client is ready!")
+})
 
 // Ready event to load sources
 client.on("ready", async () => {
@@ -122,7 +132,7 @@ app.use(bodyParser.json())
 // app.use(ddos.express)
 app.set('env', 'production')
 
-app.listen(process.env.port || 300, function() {
+app.listen(process.env.port2 || 6942, function() {
   console.log("Running on port " + process.env.MEGUMIN_PORT)
 })
 
@@ -266,11 +276,9 @@ const init = async () => {
     }
   })
 
-  client.redisClient.on('ready', function() {
-    console.log("Redis client is ready!")
-  })
+  
   client.redisClient.on('error', function (e) {
-    console.log("Redis client had an error: \n" + e)
+    // console.log("Redis client had an error: \n" + e)
   })
 
   client.levelCache = {};
