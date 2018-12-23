@@ -94,13 +94,13 @@ client.on("ready", async () => {
   if (!sourceChannel) {
     log.send("There was an error receiving the data to begin the notifiers.\nContact <@240639333567168512> ASAP.")
   } else {
-    log.send("The notifier is initializing.")
+    // log.send("The notifier is initializing.")
     sourceChannel.fetchMessage(config.sourceMessage2).then(message => {
       try {
         let output = eval(message.content)
         console.log(output)
         if (output) {
-          log.send("Item notifier up.")
+          // log.send("Item notifier up.")
         } else {
           log.send("An error has occurred within the source code.\nContact <@240639333567168512> ASAP. (Item notifier)")
         }
